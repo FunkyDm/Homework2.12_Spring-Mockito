@@ -13,4 +13,6 @@ public interface EmployeeDepSalaryService {
     Employee getEmployeeDepMaxSalary(int departmentId);
 
     Employee getEmployeeDepMinSalary(int departmentId);
+
+    Double getEmployeeDepSalarySum(int departmentId);
 }

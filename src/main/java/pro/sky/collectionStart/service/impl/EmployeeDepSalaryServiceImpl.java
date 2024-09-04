@@ -51,6 +51,16 @@ public class EmployeeDepSalaryServiceImpl implements EmployeeDepSalaryService {
                 .orElseThrow(() -> new EmployeeWrongDepartmentNumberException("Установлен неправильный номер отдела."));
     }
 
+    @Override
+    public Double getEmployeeDepSalarySum(int departmentId){
+        checkDepartmentId(departmentId);
+        return employeeServiceImpl.printAllEmployees()
+                .stream()
+                .filter(e -> e.getDepartment() == departmentId)
+                .mapToDouble(Employee::getSalary)
+                .sum();
+    }
+
     private void checkDepartmentId(int departmentId) {
         Optional.of(departmentId)
                 .filter(id -> id >= 1 && id <= 5)
