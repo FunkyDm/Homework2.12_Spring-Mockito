@@ -5,7 +5,7 @@ import pro.sky.collectionStart.model.Employee;
 import java.util.List;
 import java.util.Map;
 
-public interface EmployeeDepSalaryService {
+public interface EmployeeDepartmentService {
     Map<Integer, List<Employee>> getEmployees();
 
     List<Employee> getEmployeesByDep(int departmentId);

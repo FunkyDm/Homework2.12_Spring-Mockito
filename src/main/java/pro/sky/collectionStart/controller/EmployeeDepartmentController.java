@@ -5,17 +5,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.collectionStart.model.Employee;
-import pro.sky.collectionStart.service.impl.EmployeeDepSalaryServiceImpl;
+import pro.sky.collectionStart.service.impl.EmployeeDepartmentServiceImpl;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/departments/")
-public class EmployeeDepSalaryController {
-    private final EmployeeDepSalaryServiceImpl employeeDepSalaryServiceImpl;
+public class EmployeeDepartmentController {
+    private final EmployeeDepartmentServiceImpl employeeDepSalaryServiceImpl;
 
-    public EmployeeDepSalaryController(EmployeeDepSalaryServiceImpl employeeDepSalaryServiceImpl) {
+    public EmployeeDepartmentController(EmployeeDepartmentServiceImpl employeeDepSalaryServiceImpl) {
         this.employeeDepSalaryServiceImpl = employeeDepSalaryServiceImpl;
     }
 
@@ -37,6 +37,10 @@ public class EmployeeDepSalaryController {
     @GetMapping("min-salary")
     public Employee getEmployeeMinSalary(@RequestParam(value = "departmentId") int departmentId) {
         return employeeDepSalaryServiceImpl.getEmployeeDepMinSalary(departmentId);
+    }
+
+    public Double getEmployeeDepSalarySum(@RequestParam(value = "departmentId") int departmentId){
+        return employeeDepSalaryServiceImpl.getEmployeeDepSalarySum(departmentId);
     }
 
 }

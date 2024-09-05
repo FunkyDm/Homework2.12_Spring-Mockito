@@ -3,16 +3,16 @@ package pro.sky.collectionStart.service.impl;
 import org.springframework.stereotype.Service;
 import pro.sky.collectionStart.exceptions.EmployeeWrongDepartmentNumberException;
 import pro.sky.collectionStart.model.Employee;
-import pro.sky.collectionStart.service.EmployeeDepSalaryService;
+import pro.sky.collectionStart.service.EmployeeDepartmentService;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class EmployeeDepSalaryServiceImpl implements EmployeeDepSalaryService {
+public class EmployeeDepartmentServiceImpl implements EmployeeDepartmentService {
     private final EmployeeServiceImpl employeeServiceImpl;
 
-    public EmployeeDepSalaryServiceImpl(EmployeeServiceImpl employeeServiceImpl) {
+    public EmployeeDepartmentServiceImpl(EmployeeServiceImpl employeeServiceImpl) {
         this.employeeServiceImpl = employeeServiceImpl;
     }
 
