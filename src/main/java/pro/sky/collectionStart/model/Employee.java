@@ -56,6 +56,6 @@ public class Employee {
 
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(firstName, lastName);
+        return java.util.Objects.hash(firstName, lastName, salary, department);
     }
 }

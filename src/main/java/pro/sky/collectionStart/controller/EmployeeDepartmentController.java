@@ -1,9 +1,6 @@
 package pro.sky.collectionStart.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pro.sky.collectionStart.model.Employee;
 import pro.sky.collectionStart.service.impl.EmployeeDepartmentServiceImpl;
 
@@ -11,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/departments/")
+@RequestMapping("/department/")
 public class EmployeeDepartmentController {
     private final EmployeeDepartmentServiceImpl employeeDepSalaryServiceImpl;
 
@@ -19,26 +16,27 @@ public class EmployeeDepartmentController {
         this.employeeDepSalaryServiceImpl = employeeDepSalaryServiceImpl;
     }
 
-    @GetMapping("all")
+    @GetMapping("employees")
     public Map<Integer,List<Employee>> getEmployees() {
         return employeeDepSalaryServiceImpl.getEmployees();
     }
 
-    @GetMapping("all-by-dep")
-    public List<Employee> getEmployeesByDep(@RequestParam(value = "departmentId") int departmentId) {
+    @GetMapping("{departmentId}/employees")
+    public List<Employee> getEmployeesByDep(@PathVariable(value = "departmentId") int departmentId) {
         return employeeDepSalaryServiceImpl.getEmployeesByDep(departmentId);
     }
 
-    @GetMapping("max-salary")
+    @GetMapping("{departmentId}/salary/max")
     public Employee getEmployeeDepMaxSalary(@RequestParam(value = "departmentId") int departmentId) {
         return employeeDepSalaryServiceImpl.getEmployeeDepMaxSalary(departmentId);
     }
 
-    @GetMapping("min-salary")
+    @GetMapping("{departmentId}/salary/min")
     public Employee getEmployeeMinSalary(@RequestParam(value = "departmentId") int departmentId) {
         return employeeDepSalaryServiceImpl.getEmployeeDepMinSalary(departmentId);
     }
 
+    @GetMapping("{departmentId}/salary/sum")
     public Double getEmployeeDepSalarySum(@RequestParam(value = "departmentId") int departmentId){
         return employeeDepSalaryServiceImpl.getEmployeeDepSalarySum(departmentId);
     }
