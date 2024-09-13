@@ -28,8 +28,9 @@ class EmployeeServiceImplTest {
     @ParameterizedTest
     @MethodSource("provideParamsForStringContainsOnlyLetters")
     void shouldReturnException_WhenFirstOrLastNameContainsNotOnlyLetters(String message, String firstName, String lastName) {
-        Employee expected = new Employee(firstName, lastName, 5000.0, 3);
-        assertThrows(EmployeeWrongStringException.class, () -> out.addEmployee(expected.getFirstName(), expected.getLastName(), expected.getSalary(), expected.getDepartment()));
+        Employee expected = new Employee(firstName, lastName, ran.nextDouble(1.0, 5000.0), ran.nextInt(1, 5));
+        assertThrows(EmployeeWrongStringException.class, () -> out.addEmployee(expected.getFirstName(), expected.getLastName(), expected.getSalary(),
+                expected.getDepartment()));
     }
 
     public static Stream<Arguments> provideParamsForStringContainsOnlyLetters() {
@@ -44,10 +45,9 @@ class EmployeeServiceImplTest {
     void stringValidationAndCapitalize() {
         String firstName = faker.name().firstName().toLowerCase();
         String lastName = faker.name().firstName().toLowerCase();
-        double salary = 5000.0;
-        int department = 5;
-        Employee actual = out.addEmployee(firstName, lastName, salary, department);
-        Employee expected = new Employee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), salary, department);
+        Employee actual = out.addEmployee(firstName, lastName, ran.nextDouble(1.0, 5000.0), ran.nextInt(1, 5));
+        Employee expected = new Employee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), ran.nextDouble(1.0, 5000.0),
+                ran.nextInt(1, 5));
         assertEquals(expected, actual);
     }
 
@@ -55,8 +55,8 @@ class EmployeeServiceImplTest {
     public void addEmployee() {
         String firstName = faker.name().firstName();
         String lastName = faker.name().firstName();
-        double salary = ran.nextDouble();
-        int department = ran.nextInt(5);
+        double salary = ran.nextDouble(1.0, 5000.0);
+        int department = ran.nextInt(1, 5);
         Employee actual = new Employee(firstName, lastName, salary, department);
         assertEquals(out.addEmployee(firstName, lastName, salary, department), actual);
     }
@@ -86,10 +86,9 @@ class EmployeeServiceImplTest {
     @Test
     public void printAllEmployees() {
         List<Employee> expected = new ArrayList<>();
-        double salary = 5000.0;
-        int department = 5;
         for (int i = 0; i < 10; i++) {
-            expected.add(out.addEmployee(faker.name().firstName(), faker.name().firstName(), salary, department));
+            expected.add(out.addEmployee(faker.name().firstName(), faker.name().firstName(),
+                    ran.nextDouble(1.0, 5000.0), ran.nextInt(1, 5)));
         }
         Collection<Employee> actual = out.printAllEmployees();
         assertTrue(actual.containsAll(expected));
@@ -97,12 +96,11 @@ class EmployeeServiceImplTest {
 
     @Test
     public void shouldReturnException_WhenStorageIsFull() {
-        double salary = 5000.0;
-        int department = 5;
         for (int i = 0; i < 10; i++) {
-            out.addEmployee(faker.name().firstName(), faker.name().firstName(), salary, department);
+            out.addEmployee(faker.name().firstName(), faker.name().firstName(), ran.nextDouble(1.0, 5000.0), ran.nextInt(1, 5));
         }
-        assertThrows(EmployeesStorageFullException.class, () -> out.addEmployee(faker.name().firstName(), faker.name().firstName(), salary, department));
+        assertThrows(EmployeesStorageFullException.class, () -> out.addEmployee(faker.name().firstName(), faker.name().firstName(),
+                ran.nextDouble(1.0, 5000.0), ran.nextInt(1, 5)));
     }
 
     @Test
@@ -114,28 +112,22 @@ class EmployeeServiceImplTest {
     public void shouldReturnException_WhenEmployeeAlreadyAdded() {
         String firstName = faker.name().firstName();
         String lastName = faker.name().firstName();
-        double salary = 5000.0;
-        int department = 5;
+        double salary = ran.nextDouble(1.0, 5000.0);
+        int department = ran.nextInt(1,5);
         out.addEmployee(firstName, lastName, salary, department);
         assertThrows(EmployeeAlreadyAddedException.class, () -> out.addEmployee(firstName, lastName, salary, department));
     }
 
     @Test
     public void shouldReturnException_WhenSalaryValueIsWrong() {
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().firstName();
-        double salary = 0.0;
-        int department = 5;
-        assertThrows(EmployeeWrongSalaryException.class, () -> out.addEmployee(firstName, lastName, salary, department));
+        assertThrows(EmployeeWrongSalaryException.class, () -> out.addEmployee(faker.name().firstName(), faker.name().firstName(), 0.0,
+                ran.nextInt(1, 5)));
     }
 
     @Test
     public void shouldReturnException_WhenDepartmentValueIsWrong() {
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().firstName();
-        double salary = 5000.0;
-        int department = 6;
-        assertThrows(EmployeeWrongDepartmentNumberException.class, () -> out.addEmployee(firstName, lastName, salary, department));
+        assertThrows(EmployeeWrongDepartmentNumberException.class, () -> out.addEmployee(faker.name().firstName(), faker.name().firstName(),
+                ran.nextDouble(1.0, 5000.0), ran.nextInt(6, 60)));
     }
 
 }
