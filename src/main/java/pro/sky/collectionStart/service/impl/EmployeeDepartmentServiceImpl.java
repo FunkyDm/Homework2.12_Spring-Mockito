@@ -34,21 +34,21 @@ public class EmployeeDepartmentServiceImpl implements EmployeeDepartmentService 
     }
 
     @Override
-    public Employee getEmployeeDepMaxSalary(int departmentId) {
+    public Optional<Employee> getEmployeeDepMaxSalary(int departmentId) {
+        checkDepartmentId(departmentId);
         return employeeServiceImpl.printAllEmployees()
                 .stream()
                 .filter(e -> e.getDepartment() == departmentId)
-                .max(Comparator.comparing(Employee::getSalary))
-                .orElseThrow(() -> new EmployeeWrongDepartmentNumberException("Установлен неправильный номер отдела."));
+                .max(Comparator.comparing(Employee::getSalary));
     }
 
     @Override
-    public Employee getEmployeeDepMinSalary(int departmentId) {
+    public Optional<Employee> getEmployeeDepMinSalary(int departmentId) {
+        checkDepartmentId(departmentId);
         return employeeServiceImpl.printAllEmployees()
                 .stream()
                 .filter(e -> e.getDepartment() == departmentId)
-                .min(Comparator.comparing(Employee::getSalary))
-                .orElseThrow(() -> new EmployeeWrongDepartmentNumberException("Установлен неправильный номер отдела."));
+                .min(Comparator.comparing(Employee::getSalary));
     }
 
     @Override

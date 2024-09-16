@@ -6,6 +6,7 @@ import pro.sky.collectionStart.service.impl.EmployeeDepartmentServiceImpl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/department/")
@@ -27,17 +28,17 @@ public class EmployeeDepartmentController {
     }
 
     @GetMapping("{departmentId}/salary/max")
-    public Employee getEmployeeDepMaxSalary(@RequestParam(value = "departmentId") int departmentId) {
+    public Optional<Employee> getEmployeeDepMaxSalary(@PathVariable(value = "departmentId") int departmentId) {
         return employeeDepSalaryServiceImpl.getEmployeeDepMaxSalary(departmentId);
     }
 
     @GetMapping("{departmentId}/salary/min")
-    public Employee getEmployeeMinSalary(@RequestParam(value = "departmentId") int departmentId) {
+    public Optional<Employee> getEmployeeMinSalary(@PathVariable(value = "departmentId") int departmentId) {
         return employeeDepSalaryServiceImpl.getEmployeeDepMinSalary(departmentId);
     }
 
     @GetMapping("{departmentId}/salary/sum")
-    public Double getEmployeeDepSalarySum(@RequestParam(value = "departmentId") int departmentId){
+    public Double getEmployeeDepSalarySum(@PathVariable(value = "departmentId") int departmentId){
         return employeeDepSalaryServiceImpl.getEmployeeDepSalarySum(departmentId);
     }
 
