@@ -34,25 +34,29 @@ public class EmployeeDepartmentServiceImpl implements EmployeeDepartmentService 
     }
 
     @Override
-    public Optional<Employee> getEmployeeDepMaxSalary(int departmentId) {
+    public double getEmployeeDepMaxSalary(int departmentId) {
         checkDepartmentId(departmentId);
         return employeeServiceImpl.printAllEmployees()
                 .stream()
                 .filter(e -> e.getDepartment() == departmentId)
-                .max(Comparator.comparing(Employee::getSalary));
+                .max(Comparator.comparing(Employee::getSalary))
+                .map(Employee::getSalary)
+                .orElse(0.0);
     }
 
     @Override
-    public Optional<Employee> getEmployeeDepMinSalary(int departmentId) {
+    public double getEmployeeDepMinSalary(int departmentId) {
         checkDepartmentId(departmentId);
         return employeeServiceImpl.printAllEmployees()
                 .stream()
                 .filter(e -> e.getDepartment() == departmentId)
-                .min(Comparator.comparing(Employee::getSalary));
+                .min(Comparator.comparing(Employee::getSalary))
+                .map(Employee::getSalary)
+                .orElse(0.0);
     }
 
     @Override
-    public Double getEmployeeDepSalarySum(int departmentId){
+    public double getEmployeeDepSalarySum(int departmentId) {
         checkDepartmentId(departmentId);
         return employeeServiceImpl.printAllEmployees()
                 .stream()

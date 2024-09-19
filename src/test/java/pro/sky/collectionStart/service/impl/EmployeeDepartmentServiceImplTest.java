@@ -65,11 +65,13 @@ class EmployeeDepartmentServiceImplTest {
         Optional.of(department)
                 .filter(id -> id >= 1 && id <= 5)
                 .orElseThrow(() -> new EmployeeWrongDepartmentNumberException("Установлен неправильный номер отдела."));
-        Optional<Employee> expected = employees.stream()
+        double expected = employees.stream()
                 .filter(e -> e.getDepartment() == department)
-                .max(Comparator.comparing(Employee::getSalary));
+                .max(Comparator.comparing(Employee::getSalary))
+                .map(Employee::getSalary)
+                .orElse(0.0);
 
-        Optional<Employee> actual = out.getEmployeeDepMaxSalary(department);
+        double actual = out.getEmployeeDepMaxSalary(department);
 
         assertEquals(expected, actual);
     }
@@ -81,11 +83,13 @@ class EmployeeDepartmentServiceImplTest {
         Optional.of(department)
                 .filter(id -> id >= 1 && id <= 5)
                 .orElseThrow(() -> new EmployeeWrongDepartmentNumberException("Установлен неправильный номер отдела."));
-        Optional<Employee> expected = employees.stream()
+        double expected = employees.stream()
                 .filter(e -> e.getDepartment() == department)
-                .min(Comparator.comparing(Employee::getSalary));
+                .min(Comparator.comparing(Employee::getSalary))
+                .map(Employee::getSalary)
+                .orElse(0.0);
 
-        Optional<Employee> actual = out.getEmployeeDepMinSalary(department);
+        double actual = out.getEmployeeDepMinSalary(department);
 
         assertEquals(expected, actual);
     }

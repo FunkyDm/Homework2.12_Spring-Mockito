@@ -11,9 +11,10 @@ public interface EmployeeDepartmentService {
 
     List<Employee> getEmployeesByDep(int departmentId);
 
-    Optional<Employee> getEmployeeDepMaxSalary(int departmentId);
+    double getEmployeeDepMaxSalary(int departmentId);
 
-    Optional<Employee> getEmployeeDepMinSalary(int departmentId);
+    double getEmployeeDepMinSalary(int departmentId);
 
-    Double getEmployeeDepSalarySum(int departmentId);
+    double getEmployeeDepSalarySum(int departmentId);
+
 }

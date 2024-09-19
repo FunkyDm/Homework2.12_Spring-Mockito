@@ -28,17 +28,17 @@ public class EmployeeDepartmentController {
     }
 
     @GetMapping("{departmentId}/salary/max")
-    public Optional<Employee> getEmployeeDepMaxSalary(@PathVariable(value = "departmentId") int departmentId) {
+    public double getEmployeeDepMaxSalary(@PathVariable(value = "departmentId") int departmentId) {
         return employeeDepSalaryServiceImpl.getEmployeeDepMaxSalary(departmentId);
     }
 
     @GetMapping("{departmentId}/salary/min")
-    public Optional<Employee> getEmployeeMinSalary(@PathVariable(value = "departmentId") int departmentId) {
+    public double getEmployeeMinSalary(@PathVariable(value = "departmentId") int departmentId) {
         return employeeDepSalaryServiceImpl.getEmployeeDepMinSalary(departmentId);
     }
 
     @GetMapping("{departmentId}/salary/sum")
-    public Double getEmployeeDepSalarySum(@PathVariable(value = "departmentId") int departmentId){
+    public double getEmployeeDepSalarySum(@PathVariable(value = "departmentId") int departmentId){
         return employeeDepSalaryServiceImpl.getEmployeeDepSalarySum(departmentId);
     }
 
