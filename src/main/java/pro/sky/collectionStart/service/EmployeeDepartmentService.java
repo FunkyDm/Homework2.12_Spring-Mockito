@@ -4,13 +4,17 @@ import pro.sky.collectionStart.model.Employee;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
-public interface EmployeeDepSalaryService {
+public interface EmployeeDepartmentService {
     Map<Integer, List<Employee>> getEmployees();
 
     List<Employee> getEmployeesByDep(int departmentId);
 
-    Employee getEmployeeDepMaxSalary(int departmentId);
+    double getEmployeeDepMaxSalary(int departmentId);
 
-    Employee getEmployeeDepMinSalary(int departmentId);
+    double getEmployeeDepMinSalary(int departmentId);
+
+    double getEmployeeDepSalarySum(int departmentId);
+
 }

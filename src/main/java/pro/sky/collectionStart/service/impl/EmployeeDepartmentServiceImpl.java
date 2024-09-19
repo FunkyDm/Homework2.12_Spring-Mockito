@@ -3,16 +3,16 @@ package pro.sky.collectionStart.service.impl;
 import org.springframework.stereotype.Service;
 import pro.sky.collectionStart.exceptions.EmployeeWrongDepartmentNumberException;
 import pro.sky.collectionStart.model.Employee;
-import pro.sky.collectionStart.service.EmployeeDepSalaryService;
+import pro.sky.collectionStart.service.EmployeeDepartmentService;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class EmployeeDepSalaryServiceImpl implements EmployeeDepSalaryService {
+public class EmployeeDepartmentServiceImpl implements EmployeeDepartmentService {
     private final EmployeeServiceImpl employeeServiceImpl;
 
-    public EmployeeDepSalaryServiceImpl(EmployeeServiceImpl employeeServiceImpl) {
+    public EmployeeDepartmentServiceImpl(EmployeeServiceImpl employeeServiceImpl) {
         this.employeeServiceImpl = employeeServiceImpl;
     }
 
@@ -34,21 +34,35 @@ public class EmployeeDepSalaryServiceImpl implements EmployeeDepSalaryService {
     }
 
     @Override
-    public Employee getEmployeeDepMaxSalary(int departmentId) {
+    public double getEmployeeDepMaxSalary(int departmentId) {
+        checkDepartmentId(departmentId);
         return employeeServiceImpl.printAllEmployees()
                 .stream()
                 .filter(e -> e.getDepartment() == departmentId)
                 .max(Comparator.comparing(Employee::getSalary))
-                .orElseThrow(() -> new EmployeeWrongDepartmentNumberException("Установлен неправильный номер отдела."));
+                .map(Employee::getSalary)
+                .orElse(0.0);
     }
 
     @Override
-    public Employee getEmployeeDepMinSalary(int departmentId) {
+    public double getEmployeeDepMinSalary(int departmentId) {
+        checkDepartmentId(departmentId);
         return employeeServiceImpl.printAllEmployees()
                 .stream()
                 .filter(e -> e.getDepartment() == departmentId)
                 .min(Comparator.comparing(Employee::getSalary))
-                .orElseThrow(() -> new EmployeeWrongDepartmentNumberException("Установлен неправильный номер отдела."));
+                .map(Employee::getSalary)
+                .orElse(0.0);
+    }
+
+    @Override
+    public double getEmployeeDepSalarySum(int departmentId) {
+        checkDepartmentId(departmentId);
+        return employeeServiceImpl.printAllEmployees()
+                .stream()
+                .filter(e -> e.getDepartment() == departmentId)
+                .mapToDouble(Employee::getSalary)
+                .sum();
     }
 
     private void checkDepartmentId(int departmentId) {
